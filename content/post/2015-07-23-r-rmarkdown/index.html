@@ -1,0 +1,195 @@
+---
+title: "Visible minority in GSS data exploration"
+author: "Michelle Huang,  Chenxuan Ding, Yantong Li, Zuzhang Zhao"
+date: "2020-10-19"
+output: pdf_document
+---
+
+
+
+<p>Github Link:</p>
+<div style="page-break-after: always;"></div>
+<div id="abstract" class="section level2">
+<h2>Abstract</h2>
+<p>We explored the dataset from the Canadian General Social Survey (GSS), especially we are interested in the variables of visible minority group. We want to investigate the age distribution, language knowledge, if the place of birth is in Canada as well as their marital status. As a result, we observed that visible minority group tends to have a language knowledge of neither English nor French. In terms of place of birth, they are more likely to born outside of Canada. Furthermore, visible minority are more likely to have separated marital status.</p>
+</div>
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The goal of the analysis is to use a regression model to study the common factors of visible minority group. By doing this, we are able to have insights of what Canadian visible minority group demographics is like and potentially take care of those visible minority group in need.</p>
+</div>
+<div id="data" class="section level2">
+<h2>Data</h2>
+<p>The data we used is from GSS. The population is all Canadian over 15 years old and the frame includes a list of telephone numbers from statistics Canada and an address register. The target sample size for the 2017 GSS was 20,000 whereas the actual number of respondents was 20,602, a little bit over the target sample size. The data collection was by the mean of telephone calling from 9:00 a.m. to 9:30 p.m. Mondays to Fridays and interviewing from a different time slot. The overall response rate for the 2017 GSS was 52.4%. To deal with the non-response, the data collectors try to re-contact people multiple times.</p>
+</div>
+<div id="model" class="section level2">
+<h2>Model</h2>
+<p>Since the response variable of our model is a binary of whether the individual had ever had affairs (Yes or No). It is very natural for us to use the logistic regression model to study the odds of individual who is in the visible minority group which also included all the interested confounders:</p>
+<p><span class="math display">\[\begin{align*}
+log(\pi_{i}/1-\pi_{i}) = \beta_{0}+\beta_{2}x_{Age,i}+\beta_{1}I_{Don’t know English,i}
++\beta_{2}x_{English only,i}+\beta_{3}x_{French only,i}  \\
++\beta_{4}I_{Neither English nor French,i}
++\beta_{5}I_{Born outside Canada,i} 
++\beta_{6}I_{Don’t know birth place,i}+\beta_{7}I_{Living common-law,i} \\
++\beta_{8}I_{Married,i}
++\beta_{9}I_{Separated,i}+\beta_{10}I_{Single, never married,i} 
++\beta_{11}I_{Widowed, never married,i}
+\end{align*}\]</span></p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="results" class="section level2">
+<h2>Results</h2>
+<p><img src="index_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>We can see from the figure one, the distribution of age of visible minority group is slightly right skewed with a spike at very large age group over 80 years old.</p>
+<div style="page-break-after: always;"></div>
+<p><img src="index_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+From figure 2, we see a slightly right skewed distribution of age with different places of birth, compared group to group of different places of birth, the distribution seems to be similar.</p>
+<div style="page-break-after: always;"></div>
+<p><img src="index_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>From Figure 3, we observed very few people in visible minority speak French or both languages and most of them speak English only.</p>
+<div style="page-break-after: always;"></div>
+<p><img src="index_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>In the Figure 4, the plot showed us that single marital status has a age distribution of right skew whereas the widowed status has a left skew to it.</p>
+<div style="page-break-after: always;"></div>
+<p><img src="index_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>From this plot, we observed that people in visible minority group that is born in Canada is right skewed whereas those who born outside Canada is symmetric almost with mean around 45 years old.</p>
+<div style="page-break-after: always;"></div>
+<table>
+<colgroup>
+<col width="45%" />
+<col width="11%" />
+<col width="11%" />
+<col width="12%" />
+<col width="19%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Estimate</th>
+<th align="right">Std. Error</th>
+<th align="right">z value</th>
+<th align="right">Pr(&gt;|z|)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">(Intercept)</td>
+<td align="right">4.7339104</td>
+<td align="right">0.3998106</td>
+<td align="right">11.8403839</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">age</td>
+<td align="right">0.0242340</td>
+<td align="right">0.0042387</td>
+<td align="right">5.7172675</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">language_knowledgeDon’t know</td>
+<td align="right">-4.4419795</td>
+<td align="right">1.1524151</td>
+<td align="right">-3.8544962</td>
+<td align="right">0.0001160</td>
+</tr>
+<tr class="even">
+<td align="left">language_knowledgeEnglish only</td>
+<td align="right">-0.3252270</td>
+<td align="right">0.1859247</td>
+<td align="right">-1.7492410</td>
+<td align="right">0.0802494</td>
+</tr>
+<tr class="odd">
+<td align="left">language_knowledgeFrench only</td>
+<td align="right">-0.1748686</td>
+<td align="right">0.3032045</td>
+<td align="right">-0.5767349</td>
+<td align="right">0.5641185</td>
+</tr>
+<tr class="even">
+<td align="left">language_knowledgeNeither English nor French</td>
+<td align="right">-1.6124351</td>
+<td align="right">0.5260017</td>
+<td align="right">-3.0654558</td>
+<td align="right">0.0021734</td>
+</tr>
+<tr class="odd">
+<td align="left">place_birth_canadaBorn outside Canada</td>
+<td align="right">-2.6728752</td>
+<td align="right">0.1443334</td>
+<td align="right">-18.5187585</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="even">
+<td align="left">place_birth_canadaDon’t know</td>
+<td align="right">-3.3337550</td>
+<td align="right">0.4728117</td>
+<td align="right">-7.0509151</td>
+<td align="right">0.0000000</td>
+</tr>
+<tr class="odd">
+<td align="left">marital_statusLiving common-law</td>
+<td align="right">0.2120334</td>
+<td align="right">0.3680045</td>
+<td align="right">0.5761707</td>
+<td align="right">0.5644998</td>
+</tr>
+<tr class="even">
+<td align="left">marital_statusMarried</td>
+<td align="right">-0.2113629</td>
+<td align="right">0.2682611</td>
+<td align="right">-0.7879000</td>
+<td align="right">0.4307552</td>
+</tr>
+<tr class="odd">
+<td align="left">marital_statusSeparated</td>
+<td align="right">-0.8528582</td>
+<td align="right">0.3590816</td>
+<td align="right">-2.3751100</td>
+<td align="right">0.0175437</td>
+</tr>
+<tr class="even">
+<td align="left">marital_statusSingle, never married</td>
+<td align="right">0.0509956</td>
+<td align="right">0.3012137</td>
+<td align="right">0.1693005</td>
+<td align="right">0.8655603</td>
+</tr>
+<tr class="odd">
+<td align="left">marital_statusWidowed</td>
+<td align="right">-0.4702231</td>
+<td align="right">0.3421878</td>
+<td align="right">-1.3741665</td>
+<td align="right">0.1693900</td>
+</tr>
+</tbody>
+</table>
+<p>From the coefficient output, we could know that there are several statistically significant variables including marital_statusMarried, place_birth_canadaDon’t know, place_birth_canadaBorn outside Canada, language_knowledgeNeither English nor French, language_knowledgeEnglish only as well as age.
+In terms of marital status, we observed that the visible minority group are more likely to be separated compared to those people that are not in visible minority group. The visible minority group have greater chances of either knowing English only or not at all and they mostly were born outside of Canada.</p>
+</div>
+<div id="discussion" class="section level1">
+<h1>Discussion</h1>
+<p>Since we know that the visible minority group tend to have less language capability and were mostly born outside of Canada, it is very difficult for them to live in the country and we could use these data to have a better idea of how to take care of these people. Furthermore, we could help these visible minority from social and cultural points of view.</p>
+</div>
+<div id="weaknesses" class="section level1">
+<h1>Weaknesses</h1>
+<p>One weakness in the data analysis is the response rate of this dataset is only a little bit over 50%, so if we would like to have a more representative dataset we might want to choose a different year with less non-response and get a better coverage of the whole population.</p>
+</div>
+<div id="next-steps" class="section level1">
+<h1>Next Steps</h1>
+<p>Since there are so many variables in this dataset, it will be very difficult to include all in the model. If we would like to fit a more complicated model, we will need to check if there is any covariance between each variables or we can fit multiple regression models depending on different aspects of the questions we want to answer.</p>
+<div style="page-break-after: always;"></div>
+</div>
+<div id="references" class="section level1">
+<h1>References</h1>
+<ul>
+<li><p>Data Cleaning, Authors: Rohan Alexander and Sam Caetano Contact: <a href="mailto:rohan.alexander@utoronto.ca" class="email">rohan.alexander@utoronto.ca</a></p></li>
+<li><p>Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, <a href="https://doi.org/10.21105/joss.01686" class="uri">https://doi.org/10.21105/joss.01686</a></p></li>
+<li><p>R Core Team (2020). R: A language and environment for statistical computing. R Foundation for Statistical Computing, Vienna, Austria. URL <a href="https://www.R-project.org/" class="uri">https://www.R-project.org/</a>.</p></li>
+<li><p>Hadley Wickham, Romain François, Lionel Henry and Kirill Müller (2020). dplyr: A Grammar of Data Manipulation. R package version 1.0.2. <a href="https://CRAN.R-project.org/package=dplyr" class="uri">https://CRAN.R-project.org/package=dplyr</a></p></li>
+<li><p>H. Wickham. ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016.</p></li>
+<li><p>Yihui Xie (2020). knitr: A General-Purpose Package for Dynamic Report Generation in R. R package version 1.30.</p></li>
+<li><p>Yihui Xie (2015) Dynamic Documents with R and knitr. 2nd edition. Chapman and Hall/CRC. ISBN 978-1498716963</p></li>
+<li><p>Yihui Xie (2014) knitr: A Comprehensive Tool for Reproducible Research in R. In Victoria Stodden, Friedrich Leisch and Roger D. Peng, editors, Implementing Reproducible Computational Research. Chapman and Hall/CRC. ISBN 978-1466561595</p></li>
+</ul>
+</div>

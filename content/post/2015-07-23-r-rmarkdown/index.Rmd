@@ -5,7 +5,7 @@ date: "2015-10-19"
 output: pdf_document
 ---
 
-Github Link: https://amazing-benz-5fb249.netlify.app/2015/10/19/visible-minority-in-gss-data-exploration/
+Github Link: https://github.com/huangm50/assignment3
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
